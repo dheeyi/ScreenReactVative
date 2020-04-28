@@ -3,13 +3,10 @@
 
 >GooWil App 
 
-![](assets/pdm1.png#)
+![](assets/pdm1.png#) ![](assets/pdm2.png#)
 
-![](assets/pdm2.png#)
 
-![](assets/pdm3.png#)
-
-![](assets/pdm4.png#)
+![](assets/pdm3.png#) ![](assets/pdm4.png#)
 
 ## Installation
 
