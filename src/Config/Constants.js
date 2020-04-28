@@ -8,9 +8,12 @@ const config = {
 
 const strings = {
   NAME_APP: 'GooWia Solutions',
-  PASSWORD: 'password',
-  USERNAME: 'username',
+  PASSWORD: 'Password',
+  USERNAME: 'Username',
   TITLE_BUTTON: 'LOG IN',
+  EMAIL: 'Email',
+  EMAIL_ERROR: 'Email Incorrecto!!!',
+  USERNAME_ERROR: 'Username invalido!!!',
 };
 
 export default {

@@ -12,4 +12,5 @@ export default {
   black2: '#101010',
   white2: '#ebebeb',
   appPrimary: '#4DCA77',
+  fieldBackgroud: 'rgba(255, 255, 255, 0.4)'
 }
