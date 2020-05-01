@@ -3,20 +3,17 @@ import {StyleSheet, View, Text, TextInput, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import Colors from '../../Config/Colors';
 
-export default class TextInputForm extends Component{
+export default class TextInputForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
-  render () {
+  render() {
     return (
       <View>
         <Text style={stylesTextInput.errorText}>{this.props.error}</Text>
         <View>
-          <Image
-            style={stylesTextInput.inlineImg}
-            source={this.props.source}>
-          </Image>
+          <Image style={stylesTextInput.inlineImg} source={this.props.source} />
           <TextInput
             style={stylesTextInput.textInput}
             onChangeText={this.props.onChangeText}
@@ -26,8 +23,8 @@ export default class TextInputForm extends Component{
             autoCorrect={this.props.autoCorrect}
             selectionColor={Colors.blue}
             placeholderTextColor={Colors.white}
-            underlineColorAndroid="transparent">
-          </TextInput>
+            underlineColorAndroid="transparent"
+          />
         </View>
       </View>
     );

@@ -1,92 +1,142 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, SafeAreaView, KeyboardAvoidingView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Alert,
+} from 'react-native';
 
 import ButtonLogin from '../../Components/login/Button';
 import TextInputLogin from '../../Components/login/TextInput';
 import LogoLogin from '../../Components/login/Logo';
 import EmailTextField from '../../Components/login/EmailTextField';
 import DismissKeyboard from '../../Components/login/DismissKeyboard';
+import FirebasePlugin from '../../plugins/firebase/Firebase';
 
 import Utils from '../../utils/utils';
 import Images from '../../Config/Images';
 import Constants from '../../Config/Constants';
 import Colors from '../../Config/Colors';
 
-export default class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
 
-    this.state = {
-      username: '',
-      password: '',
-    };
+  /**
+   * @name _validateEmailAddress
+   * @returns {boolean}
+   * @private
+   */
+  const _validateEmailAddress = () => {
+    let isValidEmail = Utils.isValidEmail(email);
+    isValidEmail
+      ? setErrorEmail('')
+      : setErrorEmail(Constants.STRING.EMAIL_ERROR);
+    return isValidEmail;
+  };
 
-    this._onPress = this._onPress.bind(this);
-    this._onChangeTextUsername = this._onChangeTextUsername.bind(this);
-    this._onChangeTextPassword = this._onChangeTextPassword.bind(this);
-  }
+  /**
+   * @name _validatePassword
+   * @returns {boolean}
+   * @private
+   */
+  const _validatePassword = () => {
+    let isValidPassword = Utils.isValidField(password);
+    isValidPassword
+      ? setErrorPassword('')
+      : setErrorPassword(Constants.STRING.PASSWORD_ERROR);
+    return isValidPassword;
+  };
 
-  _onPress() {
-    debugger;
-    console.log('button pressed!!!');
-    console.log(this.state.username);
-    console.log(this.state.password);
-  }
+  /**
+   * @name _onPress
+   * @desc onPres event
+   * @private
+   */
+  const _onPress = () => {
+    let emailData = _validateEmailAddress();
+    let passwordData = _validatePassword();
 
-  _onChangeTextUsername(username) {
-    this.setState({
-      username: username,
-    });
-  }
+    if (emailData && passwordData) {
+      loginApp(email, password);
+    } else {
+      Alert.alert(Constants.STRING.EMPTY_TITLE, Constants.STRING.EMPTY_VALUES);
+    }
+  };
 
-  _onChangeTextPassword(password) {
-    this.setState({
-      password: password,
-    });
-  }
+  /**
+   * @name loginApp
+   * @param {string} email
+   * @param {string} password
+   */
+  const loginApp = (email, password) => {
+    try {
+      FirebasePlugin.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(user => {
+          navigation.navigate('Register');
+        })
+        .catch(error => {
+          FirebasePlugin.auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(user => {
+              navigation.navigate('Register');
+            })
+            .catch(error => {
+              Alert.alert('Invalid Values', error.message);
+            });
+        });
+    } catch (error) {
+      Alert.alert('Firebase Error', error.message);
+    }
+  };
 
-  _validateEmailAddress(email) {
-    // Utils.isValidEmail(email);
-  }
-
-  _onChangeTextEmail() {
-    // onachange
-  }
-
-  render() {
-    return (
-      <DismissKeyboard>
-        <KeyboardAvoidingView style={stylesLoginScreen.container} behavior="padding" enabled>
-          <View style={stylesLoginScreen.container}>
-            <SafeAreaView>
-              <LogoLogin style={stylesLoginScreen.logo}/>
-              <View style={stylesLoginScreen.form}>
-                <EmailTextField
-                  onChangeText={this._onChangeTextEmail}
-                  onEndEditing={this._validateEmailAddress}
-                  placeholder={Constants.STRING.EMAIL}
-                  secureTextEntry={false}
-                  autoCorrect={false}>
-                </EmailTextField>
-                <TextInputLogin
-                  onChangeText={this._onChangeTextUsername}
-                  source={Images.USERNAME}
-                  placeholder={Constants.STRING.USERNAME}
-                  securetextEntry={false}
-                  autoCorrect={false}>
-                </TextInputLogin>
-                <ButtonLogin
-                  onPress={this._onPress}
-                  titleButton={Constants.STRING.TITLE_BUTTON}>
-                </ButtonLogin>
-              </View>
-            </SafeAreaView>
-          </View>
-        </KeyboardAvoidingView>
-      </DismissKeyboard>
-    );
-  }
-}
+  return (
+    <DismissKeyboard>
+      <KeyboardAvoidingView
+        style={stylesLoginScreen.container}
+        behavior="height"
+        enabled>
+        <View style={stylesLoginScreen.container}>
+          <SafeAreaView>
+            <LogoLogin style={stylesLoginScreen.logo} />
+            <View style={stylesLoginScreen.form}>
+              <EmailTextField
+                onChangeText={email => {
+                  setEmail(email);
+                }}
+                onEndEditing={_validateEmailAddress}
+                error={errorEmail}
+                source={Images.EMAIL}
+                placeholder={Constants.STRING.EMAIL}
+                secureTextEntry={false}
+                autoCorrect={false}
+              />
+              <TextInputLogin
+                onChangeText={password => {
+                  setPassword(password);
+                }}
+                onEndEditing={_validatePassword}
+                error={errorPassword}
+                source={Images.USERNAME}
+                placeholder={Constants.STRING.PASSWORD}
+                securetextEntry={true}
+                autoCorrect={false}
+              />
+              <ButtonLogin
+                onPress={_onPress}
+                titleButton={Constants.STRING.TITLE_BUTTON}
+              />
+            </View>
+          </SafeAreaView>
+        </View>
+      </KeyboardAvoidingView>
+    </DismissKeyboard>
+  );
+};
 
 const stylesLoginScreen = StyleSheet.create({
   container: {
@@ -94,6 +144,15 @@ const stylesLoginScreen = StyleSheet.create({
     backgroundColor: Colors.blue,
     alignItems: 'center',
   },
-  logo: {width: '100%', resizeMode: 'contain', alignSelf: 'center'},
-  form: {justifyContent: 'center', width: '80%'},
+  logo: {
+    width: '100%',
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  form: {
+    justifyContent: 'center',
+    width: '80%',
+  },
 });
+
+export default LoginScreen;

@@ -3,4 +3,4 @@ export default {
   PASSWORD: require('../../assets/pass.png'),
   USERNAME: require('../../assets/username.png'),
   EMAIL: require('../../assets/email.png'),
-}
+};

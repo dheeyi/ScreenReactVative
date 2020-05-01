@@ -11,12 +11,15 @@ const strings = {
   PASSWORD: 'Password',
   USERNAME: 'Username',
   TITLE_BUTTON: 'LOG IN',
+  REGISTER: 'Register',
   EMAIL: 'Email',
-  EMAIL_ERROR: 'Email Incorrecto!!!',
-  USERNAME_ERROR: 'Username invalido!!!',
+  EMAIL_ERROR: 'Email invalid!',
+  PASSWORD_ERROR: 'Password invalid!',
+  EMPTY_TITLE: 'Review Email/Password values',
+  EMPTY_VALUES: 'Empty values detected',
 };
 
 export default {
   CONFIG: config,
   STRING: strings,
-}
+};

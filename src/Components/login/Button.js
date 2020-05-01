@@ -5,7 +5,6 @@ import Colors from '../../Config/Colors';
 export default class Button extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   render() {
@@ -14,8 +13,7 @@ export default class Button extends Component {
         <TouchableOpacity
           style={stylesButton.container}
           onPress={this.props.onPress}>
-          <Text
-            style={stylesButton.text}>{this.props.titleButton}</Text>
+          <Text style={stylesButton.text}>{this.props.titleButton}</Text>
         </TouchableOpacity>
       </View>
     );
