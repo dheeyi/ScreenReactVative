@@ -24,6 +24,7 @@ const LoginScreen = ({navigation}) => {
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    * @name _validateEmailAddress
@@ -74,22 +75,27 @@ const LoginScreen = ({navigation}) => {
    */
   const loginApp = (email, password) => {
     try {
+      setIsLoading(true);
       FirebasePlugin.auth()
         .signInWithEmailAndPassword(email, password)
         .then(user => {
+          setIsLoading(false);
           navigation.navigate('Register');
         })
         .catch(error => {
           FirebasePlugin.auth()
             .createUserWithEmailAndPassword(email, password)
             .then(user => {
+              setIsLoading(false);
               navigation.navigate('Register');
             })
             .catch(error => {
+              setIsLoading(false);
               Alert.alert('Invalid Values', error.message);
             });
         });
     } catch (error) {
+      setIsLoading(true);
       Alert.alert('Firebase Error', error.message);
     }
   };
@@ -123,10 +129,11 @@ const LoginScreen = ({navigation}) => {
                 error={errorPassword}
                 source={Images.USERNAME}
                 placeholder={Constants.STRING.PASSWORD}
-                securetextEntry={true}
+                secureTextEntry={true}
                 autoCorrect={false}
               />
               <ButtonLogin
+                isLoading={isLoading}
                 onPress={_onPress}
                 titleButton={Constants.STRING.TITLE_BUTTON}
               />
@@ -142,6 +149,7 @@ const stylesLoginScreen = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.blue,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   logo: {
@@ -152,6 +160,7 @@ const stylesLoginScreen = StyleSheet.create({
   form: {
     justifyContent: 'center',
     width: '80%',
+    marginBottom: 20,
   },
 });
 

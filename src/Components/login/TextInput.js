@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TextInput, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import Colors from '../../Config/Colors';
+import Constants from '../../Config/Constants';
 
 export default class TextInputForm extends Component {
   constructor(props) {
@@ -40,9 +41,10 @@ TextInputForm.propTypes = {
 
 const stylesTextInput = StyleSheet.create({
   textInput: {
+    height: Constants.CONFIG.HEADER_HEIGHT * 0.06,
+    width: Constants.CONFIG.SCREEN_WIDTH * 0.85,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     alignItems: 'center',
-    height: 40,
     color: Colors.white,
     paddingLeft: 40,
     borderRadius: 10,
@@ -60,7 +62,7 @@ const stylesTextInput = StyleSheet.create({
     top: 9,
   },
   errorText: {
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.red,
     marginHorizontal: 20,
   },

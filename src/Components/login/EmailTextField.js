@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   textFieldView: {
     height: Constants.CONFIG.HEADER_HEIGHT * 0.06,
-    width: Constants.CONFIG.SCREEN_WIDTH * 0.8,
+    width: Constants.CONFIG.SCREEN_WIDTH * 0.85,
     borderRadius: 10,
     marginTop: 5,
     marginBottom: 10,
