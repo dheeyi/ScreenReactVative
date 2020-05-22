@@ -12,7 +12,7 @@ import TextInputLogin from '../../Components/login/TextInput';
 import LogoLogin from '../../Components/login/Logo';
 import EmailTextField from '../../Components/login/EmailTextField';
 import DismissKeyboard from '../../Components/login/DismissKeyboard';
-import FirebasePlugin from '../../plugins/firebase/Firebase';
+import FirebasePlugin from '../../Plugins/firebase/Firebase';
 
 import Utils from '../../utils/utils';
 import Images from '../../Config/Images';
@@ -78,18 +78,18 @@ const LoginScreen = ({navigation}) => {
       setIsLoading(true);
       FirebasePlugin.auth()
         .signInWithEmailAndPassword(email, password)
-        .then(user => {
+        .then((user) => {
           setIsLoading(false);
           navigation.navigate('Register');
         })
-        .catch(error => {
+        .catch((error) => {
           FirebasePlugin.auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(user => {
+            .then((user) => {
               setIsLoading(false);
               navigation.navigate('Register');
             })
-            .catch(error => {
+            .catch((error) => {
               setIsLoading(false);
               Alert.alert('Invalid Values', error.message);
             });
@@ -111,7 +111,7 @@ const LoginScreen = ({navigation}) => {
             <LogoLogin style={stylesLoginScreen.logo} />
             <View style={stylesLoginScreen.form}>
               <EmailTextField
-                onChangeText={email => {
+                onChangeText={(email) => {
                   setEmail(email);
                 }}
                 onEndEditing={_validateEmailAddress}
@@ -122,7 +122,7 @@ const LoginScreen = ({navigation}) => {
                 autoCorrect={false}
               />
               <TextInputLogin
-                onChangeText={password => {
+                onChangeText={(password) => {
                   setPassword(password);
                 }}
                 onEndEditing={_validatePassword}
