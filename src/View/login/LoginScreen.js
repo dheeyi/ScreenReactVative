@@ -80,14 +80,14 @@ const LoginScreen = ({navigation}) => {
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
           setIsLoading(false);
-          navigation.navigate('Register');
+          navigation.navigate('App');
         })
         .catch((error) => {
           FirebasePlugin.auth()
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
               setIsLoading(false);
-              navigation.navigate('Register');
+              navigation.navigate('App');
             })
             .catch((error) => {
               setIsLoading(false);

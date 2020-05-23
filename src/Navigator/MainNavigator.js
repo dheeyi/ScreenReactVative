@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginScreen from '../View/login/LoginScreen';
 import RegisterScreen from '../View/register/Register';
+import AppScreen from '../View/App/AppScreen';
 
 import Colors from '../Config/Colors';
 
@@ -12,11 +13,27 @@ const Stack = createStackNavigator();
 function mainNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
+      <Stack.Navigator>
         <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name='App'
+          component={AppScreen}
+          options={{
+            title: 'App Main',
+            headerStyle: {
+              backgroundColor: Colors.appPrimary,
+            },
+            headerTintColor: Colors.white,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              color: Colors.white,
+              fontSize: 25
+            },
+          }}
         />
         <Stack.Screen
           name="Register"
