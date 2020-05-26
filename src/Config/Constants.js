@@ -17,6 +17,8 @@ const strings = {
   PASSWORD_ERROR: 'Password invalid!',
   EMPTY_TITLE: 'Review Email/Password values',
   EMPTY_VALUES: 'Empty values detected',
+  ADD_EMAIL: 'Enter Email',
+  ADD_EMAIL_BUTTON: 'ADD',
 };
 
 export default {

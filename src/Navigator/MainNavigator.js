@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '../View/login/LoginScreen';
 import RegisterScreen from '../View/register/Register';
 import AppScreen from '../View/App/AppScreen';
+import SettingScreen from '../View/Setting/SettingScreen';
 
 import Colors from '../Config/Colors';
 
@@ -34,6 +35,11 @@ function mainNavigator() {
               fontSize: 25
             },
           }}
+        />
+        <Stack.Screen
+          name="Setting"
+          component={SettingScreen}
+          options={{title: 'Settings'}}
         />
         <Stack.Screen
           name="Register"

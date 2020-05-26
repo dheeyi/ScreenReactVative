@@ -9,7 +9,7 @@ import Images from '../../Config/Images';
 
 const AppScreen = ({navigation}) => {
   const onPressSetting = () => {
-    Alert.alert('Setting button pressed!!!');
+    navigation.navigate('Setting');
   };
 
   const onPressLogout = () => {
