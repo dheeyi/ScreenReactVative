@@ -8,9 +8,9 @@ const CTextField = ({value, autoCorrect, placeholder, error, onChange, onValidat
   return (
     <View>
       <Text style={styles.error}>{error}</Text>
-      <View style={styles.field}>
+      <View style={styles.fieldView}>
         <TextInput
-          styles={styles.fieldView}
+          styles={styles.field}
           value={value}
           autoCorrect={autoCorrect}
           placeholder={placeholder}

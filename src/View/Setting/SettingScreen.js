@@ -6,6 +6,7 @@ import Button from '../../Components/login/Button';
 import FirebasePlugin, {firestore} from '../../Plugins/firebase/Firebase';
 
 import Constants from '../../Config/Constants';
+import Utils from '../../utils/utils';
 
 const SettingScreen = () => {
   const [emailName, setEmailName] = useState('');
@@ -13,8 +14,21 @@ const SettingScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const validateCTextField = () => {
-    return true;
+    let isValidField = Utils.isValidField(emailName);
+    isValidField ?
+      setErrorEmailName('') :
+      setErrorEmailName(Constants.STRING.ENTER_EMAIL);
+    return isValidField;
   };
+
+  const onPressAdd = () => {
+    let isValid = validateCTextField();
+    if (isValid) {
+      addEmailRowToFirebase();
+    } else {
+      Alert.alert(Constants.STRING.REVIEW_EMAIL);
+    }
+  }
 
   const addEmailRowToFirebase = () => {
     setIsLoading(true);
@@ -51,7 +65,7 @@ const SettingScreen = () => {
       />
       <Button
         titleButton={Constants.STRING.ADD_EMAIL_BUTTON}
-        onPress={addEmailRowToFirebase}
+        onPress={onPressAdd}
         isLoading={isLoading}
       />
     </View>

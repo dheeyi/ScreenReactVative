@@ -19,6 +19,8 @@ const strings = {
   EMPTY_VALUES: 'Empty values detected',
   ADD_EMAIL: 'Enter Email',
   ADD_EMAIL_BUTTON: 'ADD',
+  REVIEW_EMAIL: 'Please review email data',
+  ENTER_EMAIL: 'Enter email value',
 };
 
 export default {
