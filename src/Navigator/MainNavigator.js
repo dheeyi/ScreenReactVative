@@ -7,6 +7,7 @@ import LoginScreen from '../View/login/LoginScreen';
 import RegisterScreen from '../View/register/Register';
 import AppScreen from '../View/App/AppScreen';
 import SettingScreen from '../View/Setting/SettingScreen';
+import {ContextLogin} from '../Config/Context';
 
 import Colors from '../Config/Colors';
 
@@ -69,15 +70,27 @@ const DrawerScreen = () => {
 
 
 const mainNavigator = () => {
-  const [isLogged, setIsLogged] = React.useState(null);
+  const [isLogged, setIsLogged] = React.useState(false);
+  const contextLogin = React.useMemo(() => {
+    return {
+      loginUser: () => {
+        console.log('loginApp')
+        setIsLogged(true);
+      },
+      logoutUser: () => {
+        setIsLogged(false);
+      }
+    }
+  });
+
   return (
-    <NavigationContainer>
-      {isLogged !== null ? (
-        <StackScreen />
-      ) : (
-        <DrawerScreen />
-      )}
-    </NavigationContainer>
+      <NavigationContainer>
+        {isLogged !== null ? (
+          <StackScreen />
+        ) : (
+          <DrawerScreen />
+        )}
+      </NavigationContainer>
   );
 }
 

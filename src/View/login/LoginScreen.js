@@ -13,6 +13,7 @@ import LogoLogin from '../../Components/login/Logo';
 import EmailTextField from '../../Components/login/EmailTextField';
 import DismissKeyboard from '../../Components/login/DismissKeyboard';
 import FirebasePlugin from '../../Plugins/firebase/Firebase';
+import {AuthContext} from '../../Config/Context';
 
 import Utils from '../../utils/utils';
 import Images from '../../Config/Images';
