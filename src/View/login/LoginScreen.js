@@ -54,11 +54,11 @@ const LoginScreen = ({navigation}) => {
   };
 
   /**
-   * @name _onPress
+   * @name _onPressLogin
    * @desc onPres event
    * @private
    */
-  const _onPress = () => {
+  const _onPressLogin = () => {
     let emailData = _validateEmailAddress();
     let passwordData = _validatePassword();
 
@@ -84,16 +84,8 @@ const LoginScreen = ({navigation}) => {
           navigation.navigate('App');
         })
         .catch((error) => {
-          FirebasePlugin.auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-              setIsLoading(false);
-              navigation.navigate('App');
-            })
-            .catch((error) => {
-              setIsLoading(false);
-              Alert.alert('Invalid Values', error.message);
-            });
+          setIsLoading(false);
+          Alert.alert('Invalid Values', error.message);
         });
     } catch (error) {
       setIsLoading(true);
@@ -133,11 +125,20 @@ const LoginScreen = ({navigation}) => {
                 secureTextEntry={true}
                 autoCorrect={false}
               />
-              <ButtonLogin
-                isLoading={isLoading}
-                onPress={_onPress}
-                titleButton={Constants.STRING.TITLE_BUTTON}
-              />
+              <View style={stylesLoginScreen.buttonSpace}>
+                <ButtonLogin
+                  isLoading={isLoading}
+                  onPress={_onPressLogin}
+                  titleButton={Constants.STRING.TITLE_BUTTON}
+                />
+              </View>
+              <View>
+                <ButtonLogin
+                  isLoading={isLoading}
+                  onPress={() => {navigation.navigate('Register');}}
+                  titleButton={Constants.STRING.REGISTER_FORM}
+                />
+              </View>
             </View>
           </SafeAreaView>
         </View>
@@ -163,6 +164,9 @@ const stylesLoginScreen = StyleSheet.create({
     width: '80%',
     marginBottom: 20,
   },
+  buttonSpace: {
+    marginBottom: 10,
+  }
 });
 
 export default LoginScreen;

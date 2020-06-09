@@ -30,6 +30,24 @@ const SettingScreen = () => {
     }
   }
 
+  const addGroupEmails = (emailID, userID) => {
+    const emailsAddedRef = firestore
+      .collection('groupEmails').doc(userID)
+      .collection('email').doc('EMAILS_ADDED');
+
+    emailsAddedRef.set({
+      userID: userID,
+    })
+      .then(function () {
+        setIsLoading(false);
+        Alert.alert('USER ID creado:', emailsAddedRef.id);
+      })
+      .catch(function (error) {
+        Alert.alert('Error al crear', error.message);
+        setIsLoading(false);
+      });
+  }
+
   const addEmailRowToFirebase = () => {
     setIsLoading(true);
 
@@ -43,6 +61,7 @@ const SettingScreen = () => {
     })
       .then(function () {
         setIsLoading(false);
+        addGroupEmails(emailRef.id, userID);
         Alert.alert('Email creado:', emailRef.id);
       })
       .catch(function (error) {

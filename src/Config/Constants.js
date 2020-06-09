@@ -21,6 +21,7 @@ const strings = {
   ADD_EMAIL_BUTTON: 'ADD',
   REVIEW_EMAIL: 'Please review email data',
   ENTER_EMAIL: 'Enter email value',
+  REGISTER_FORM: 'REGISTER FORM',
 };
 
 export default {
