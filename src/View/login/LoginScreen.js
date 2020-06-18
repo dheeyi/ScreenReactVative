@@ -20,7 +20,7 @@ import Images from '../../Config/Images';
 import Constants from '../../Config/Constants';
 import Colors from '../../Config/Colors';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,7 +81,7 @@ const LoginScreen = ({navigation}) => {
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
           setIsLoading(false);
-          navigation.navigate('App');
+          route.params.route.params.setIsLogged(true);
         })
         .catch((error) => {
           setIsLoading(false);
