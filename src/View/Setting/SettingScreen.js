@@ -15,9 +15,9 @@ const SettingScreen = () => {
 
   const validateCTextField = () => {
     let isValidField = Utils.isValidField(emailName);
-    isValidField ?
-      setErrorEmailName('') :
-      setErrorEmailName(Constants.STRING.ENTER_EMAIL);
+    isValidField
+      ? setErrorEmailName('')
+      : setErrorEmailName(Constants.STRING.ENTER_EMAIL);
     return isValidField;
   };
 
@@ -28,16 +28,19 @@ const SettingScreen = () => {
     } else {
       Alert.alert(Constants.STRING.REVIEW_EMAIL);
     }
-  }
+  };
 
   const addGroupEmails = (emailID, userID) => {
     const emailsAddedRef = firestore
-      .collection('groupEmails').doc(userID)
-      .collection('email').doc('EMAILS_ADDED');
+      .collection('groupEmails')
+      .doc(userID)
+      .collection('email')
+      .doc('EMAILS_ADDED');
 
-    emailsAddedRef.set({
-      userID: userID,
-    })
+    emailsAddedRef
+      .set({
+        userID: userID,
+      })
       .then(function () {
         setIsLoading(false);
         Alert.alert('USER ID creado:', emailsAddedRef.id);
@@ -46,7 +49,7 @@ const SettingScreen = () => {
         Alert.alert('Error al crear', error.message);
         setIsLoading(false);
       });
-  }
+  };
 
   const addEmailRowToFirebase = () => {
     setIsLoading(true);
@@ -54,11 +57,12 @@ const SettingScreen = () => {
     const emailRef = firestore.collection('emails').doc();
     const userID = FirebasePlugin.auth().currentUser.uid;
 
-    emailRef.set({
-      emailID: emailRef.id,
-      emailName: emailName,
-      userID: userID,
-    })
+    emailRef
+      .set({
+        emailID: emailRef.id,
+        emailName: emailName,
+        userID: userID,
+      })
       .then(function () {
         setIsLoading(false);
         addGroupEmails(emailRef.id, userID);

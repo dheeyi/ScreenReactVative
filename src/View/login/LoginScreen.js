@@ -20,7 +20,7 @@ import Images from '../../Config/Images';
 import Constants from '../../Config/Constants';
 import Colors from '../../Config/Colors';
 
-const LoginScreen = ({ navigation, route }) => {
+const LoginScreen = ({navigation, route}) => {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -135,7 +135,9 @@ const LoginScreen = ({ navigation, route }) => {
               <View>
                 <ButtonLogin
                   isLoading={isLoading}
-                  onPress={() => {navigation.navigate('Register');}}
+                  onPress={() => {
+                    navigation.navigate('Register');
+                  }}
                   titleButton={Constants.STRING.REGISTER_FORM}
                 />
               </View>
@@ -166,7 +168,7 @@ const stylesLoginScreen = StyleSheet.create({
   },
   buttonSpace: {
     marginBottom: 10,
-  }
+  },
 });
 
 export default LoginScreen;

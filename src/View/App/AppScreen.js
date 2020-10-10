@@ -14,11 +14,17 @@ const AppScreen = ({navigation}) => {
 
   const onPressLogout = () => {
     try {
-      FirebasePlugin.auth().signOut()
+      FirebasePlugin.auth()
+        .signOut()
         .then(() => {
-            Alert.alert('Logout App', 'Successfully Logout', [{
-              text: 'Login App', onPress: () => {navigation.navigate('Login')}
-            }]);
+          Alert.alert('Logout App', 'Successfully Logout', [
+            {
+              text: 'Login App',
+              onPress: () => {
+                navigation.navigate('Login');
+              },
+            },
+          ]);
         });
     } catch (e) {
       Alert.alert('Contact admin', e.message);
@@ -28,10 +34,10 @@ const AppScreen = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <ButtonIcon imageSrc={Images.SETTING} onPressButton={onPressSetting}/>
+        <ButtonIcon imageSrc={Images.SETTING} onPressButton={onPressSetting} />
       ),
       headerRight: () => (
-        <ButtonIcon imageSrc={Images.LOGOUT} onPressButton={onPressLogout}/>
+        <ButtonIcon imageSrc={Images.LOGOUT} onPressButton={onPressLogout} />
       ),
     });
   });

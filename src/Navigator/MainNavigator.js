@@ -12,13 +12,13 @@ import SplashScreen from '../View/Splash/SplashScreen';
 import Colors from '../Config/Colors';
 
 const Stack = createStackNavigator();
-const StackScreen = ({ route }) => {
+const StackScreen = ({route}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        initialParams={{ route }}
+        initialParams={{route}}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -45,7 +45,7 @@ const DrawerScreen = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
-        name='App'
+        name="App"
         component={AppScreen}
         options={{
           title: 'App Main',
@@ -85,12 +85,14 @@ const MainStackScreen = () => {
       {isLoading ? (
         <MainStack.Screen name="Loading" component={SplashScreen} />
       ) : isLogged ? (
-          <MainStack.Screen name="DrawerNavigation" component={DrawerScreen} />
-        )
-        : (
-          <MainStack.Screen name="LoginRegister" component={StackScreen} initialParams={{ setIsLogged }}/>
-        )
-      }
+        <MainStack.Screen name="DrawerNavigation" component={DrawerScreen} />
+      ) : (
+        <MainStack.Screen
+          name="LoginRegister"
+          component={StackScreen}
+          initialParams={{setIsLogged}}
+        />
+      )}
     </MainStack.Navigator>
   );
 };

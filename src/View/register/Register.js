@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Alert, KeyboardAvoidingView, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Alert,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from 'react-native';
 
 import Constants from '../../Config/Constants';
 import Colors from '../../Config/Colors';
@@ -24,7 +30,7 @@ const RegisterScreen = ({navigation}) => {
       ? setErrorEmail('')
       : setErrorEmail(Constants.STRING.EMAIL_ERROR);
     return isValidEmail;
-  }
+  };
 
   const _validatePassword = () => {
     let isValidPassword = Utils.isValidField(password);
@@ -32,7 +38,7 @@ const RegisterScreen = ({navigation}) => {
       ? setErrorPassword('')
       : setErrorPassword(Constants.STRING.PASSWORD_ERROR);
     return isValidPassword;
-  }
+  };
 
   const _onPressRegister = () => {
     try {
@@ -40,9 +46,14 @@ const RegisterScreen = ({navigation}) => {
         .createUserWithEmailAndPassword(email, password)
         .then((user) => {
           setIsLoading(false);
-          Alert.alert('Register Form', 'Registered user', [{
-            text: 'Enter credentials', onPress: () => {navigation.navigate('Login');}
-          }]);
+          Alert.alert('Register Form', 'Registered user', [
+            {
+              text: 'Enter credentials',
+              onPress: () => {
+                navigation.navigate('Login');
+              },
+            },
+          ]);
         })
         .catch((error) => {
           setIsLoading(false);
@@ -52,14 +63,11 @@ const RegisterScreen = ({navigation}) => {
       setIsLoading(false);
       Alert.alert('Invalid Values', error.message);
     }
-  }
+  };
 
   return (
     <DismissKeyboard>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior="height"
-        enabled>
+      <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
         <View style={styles.container}>
           <SafeAreaView>
             <View style={styles.form}>
@@ -103,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.blue,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
     color: Colors.white,
