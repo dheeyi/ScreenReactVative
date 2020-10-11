@@ -10,7 +10,7 @@ const strings = {
   NAME_APP: 'GooWia Solutions',
   PASSWORD: 'Password',
   USERNAME: 'Username',
-  TITLE_BUTTON: 'LOG IN',
+  BUT_LOGIN: 'Log In',
   REGISTER: 'Register',
   EMAIL: 'Email',
   EMAIL_ERROR: 'Email invalid!',

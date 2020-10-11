@@ -16,7 +16,7 @@ const Button = ({titleButton, onPress, isLoading}) => {
   const button = () => {
     return (
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.text}>{titleButton}</Text>
+        <Text style={styles.text}>{titleButton.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   };

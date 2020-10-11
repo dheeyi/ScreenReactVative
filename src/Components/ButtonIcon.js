@@ -7,7 +7,7 @@ const ButtonIcon = ({onPressButton, imageSrc}) => {
       <Image style={styles.image} source={imageSrc} />
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -16,15 +16,15 @@ const styles = StyleSheet.create({
     width: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10
+    margin: 10,
   },
   image: {
     padding: 10,
     margin: 5,
     height: 25,
     width: 25,
-    resizeMode: 'stretch'
-  }
+    resizeMode: 'stretch',
+  },
 });
 
 export default ButtonIcon;

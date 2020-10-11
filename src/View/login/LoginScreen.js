@@ -11,9 +11,9 @@ import ButtonLogin from '../../Components/login/Button';
 import TextInputLogin from '../../Components/login/TextInput';
 import LogoLogin from '../../Components/login/Logo';
 import EmailTextField from '../../Components/login/EmailTextField';
+import SwitchField from '../../Components/login/SwitchField';
 import DismissKeyboard from '../../Components/login/DismissKeyboard';
 import FirebasePlugin from '../../Plugins/firebase/Firebase';
-import {AuthContext} from '../../Config/Context';
 
 import Utils from '../../utils/utils';
 import Images from '../../Config/Images';
@@ -21,11 +21,33 @@ import Constants from '../../Config/Constants';
 import Colors from '../../Config/Colors';
 
 const LoginScreen = ({navigation, route}) => {
+  const [loginRegister, setLoginRegister] = useState(true);
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  /**
+   * @name _toggleSwitch
+   * @desc sets switch value
+   * @private
+   */
+  const _toggleSwitch = () => {
+    setLoginRegister(!loginRegister);
+  };
+
+  /**
+   * @name _getTextSwitch
+   * @desc gets correct title
+   * @returns {string}
+   * @private
+   */
+  const _getTextSwitch = () => {
+    return loginRegister
+      ? Constants.STRING.BUT_LOGIN
+      : Constants.STRING.REGISTER;
+  };
 
   /**
    * @name _validateEmailAddress
@@ -61,9 +83,10 @@ const LoginScreen = ({navigation, route}) => {
   const _onPressLogin = () => {
     let emailData = _validateEmailAddress();
     let passwordData = _validatePassword();
+    let execFn = loginRegister ? loginApp : registerApp;
 
     if (emailData && passwordData) {
-      loginApp(email, password);
+      execFn(email, password);
     } else {
       Alert.alert(Constants.STRING.EMPTY_TITLE, Constants.STRING.EMPTY_VALUES);
     }
@@ -88,8 +111,40 @@ const LoginScreen = ({navigation, route}) => {
           Alert.alert('Invalid Values', error.message);
         });
     } catch (error) {
-      setIsLoading(true);
+      setIsLoading(false);
       Alert.alert('Firebase Error', error.message);
+    }
+  };
+
+  /**
+   * @desc register app
+   * @param {string} email
+   * @param {string} password
+   */
+  const registerApp = (email, password) => {
+    try {
+      setIsLoading(true);
+      FirebasePlugin.auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          setIsLoading(false);
+          Alert.alert('Register Form', 'Registered user', [
+            {
+              text: 'Ok',
+              onPress: () => {
+                setIsLoading(false);
+                route.params.route.params.setIsLogged(true);
+              },
+            },
+          ]);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          Alert.alert('Invalid Values', error.message);
+        });
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert('Invalid Values', error.message);
     }
   };
 
@@ -103,6 +158,11 @@ const LoginScreen = ({navigation, route}) => {
           <SafeAreaView>
             <LogoLogin style={stylesLoginScreen.logo} />
             <View style={stylesLoginScreen.form}>
+              <SwitchField
+                isEnabled={loginRegister}
+                toggleSwitch={_toggleSwitch}
+                text={_getTextSwitch()}
+              />
               <EmailTextField
                 onChangeText={(email) => {
                   setEmail(email);
@@ -129,16 +189,7 @@ const LoginScreen = ({navigation, route}) => {
                 <ButtonLogin
                   isLoading={isLoading}
                   onPress={_onPressLogin}
-                  titleButton={Constants.STRING.TITLE_BUTTON}
-                />
-              </View>
-              <View>
-                <ButtonLogin
-                  isLoading={isLoading}
-                  onPress={() => {
-                    navigation.navigate('Register');
-                  }}
-                  titleButton={Constants.STRING.REGISTER_FORM}
+                  titleButton={_getTextSwitch()}
                 />
               </View>
             </View>

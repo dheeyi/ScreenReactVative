@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import LoginScreen from '../View/login/LoginScreen';
-import RegisterScreen from '../View/register/Register';
 import AppScreen from '../View/App/AppScreen';
 import SettingScreen from '../View/Setting/SettingScreen';
 import SplashScreen from '../View/Splash/SplashScreen';
@@ -20,21 +19,6 @@ const StackScreen = ({route}) => {
         component={LoginScreen}
         initialParams={{route}}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          title: 'Register Form',
-          headerStyle: {
-            backgroundColor: Colors.appPrimary,
-          },
-          headerTintColor: Colors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            color: Colors.white,
-          },
-        }}
       />
     </Stack.Navigator>
   );

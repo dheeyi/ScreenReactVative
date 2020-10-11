@@ -4,7 +4,14 @@ import {StyleSheet, View, Text, TextInput} from 'react-native';
 import Colors from '../Config/Colors';
 import Constants from '../Config/Constants';
 
-const CTextField = ({value, autoCorrect, placeholder, error, onChange, onValidate}) => {
+const CTextField = ({
+  value,
+  autoCorrect,
+  placeholder,
+  error,
+  onChange,
+  onValidate,
+}) => {
   return (
     <View>
       <Text style={styles.error}>{error}</Text>
@@ -16,12 +23,11 @@ const CTextField = ({value, autoCorrect, placeholder, error, onChange, onValidat
           placeholder={placeholder}
           onChangeText={onChange}
           onEndEditing={onValidate}
-        >
-        </TextInput>
+        />
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   field: {
